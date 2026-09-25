@@ -1,58 +1,38 @@
-# js-interview-assessment
+# Currency Converter
 
-## Project Overview:
-Your task is to create a simple currency conversion tool similar to that which can be found on Google. 
+Simple currency converter, similiar to the one in Google. Made with React, TypeScript and Vite. Rates come from the [CurrencyBeacon](https://currencybeacon.com) API.
 
-- Please complete this assignment using the front-end framework specified in the job description for the position you applied to (react)
-- Please focus on component composition and adhering to best practices in coding first and foremost, and then the overall layout and design if time permits.
-- We’d love for you to use this take-home project as an opportunity to showcase your skills and familiarity with the given framework. That said, we understand your time is valuable — please don’t feel the need to over-engineer or spend too many hours on it. We’re more interested in seeing your thought process, coding style, and how you approach problems.
+## How to run
 
-## Requirements:
+You need Node 20.19+ and a free CurrencyBeacon API key (you get it after you register, its on the dashboard).
 
-### Currency Selection:
-1. Provide two select boxes for users to choose a currency to convert from and to.
-1. Fetch a list of currencies from the https://api.currencybeacon.com/v1/currencies API.
-1. Populate the select boxes with the available options returned from the API.
+```bash
+npm install
+cp .env.example .env   # put your key in VITE_CURRENCY_BEACON_API_KEY
+npm run dev
+```
 
-### Currency Conversion:
-1. Allow users to input an amount for the “from” currency.
-1. Fetch the converted value from the https://api.currencybeacon.com/v1/convert API.
-1. Populate the “to” value based on the value returned from the API.
+App runs on http://localhost:5173
 
-## API Overview:
-- For this assessment, you will be required to make use of the following free API resource: [https://currencybeacon.com](https://currencybeacon.com/register)
-- You will need to register for a free account to get access to your `API_KEY`. 
-  - Your `API_KEY` can be found on the main dashboard once you log in under `API Token Information`.
-- Your application should make use of the following two API calls:
-  - https://api.currencybeacon.com/v1/currencies
-  - https://api.currencybeacon.com/v1/convert
-- Full documentation can be found here: https://currencybeacon.com/api-documentation
-- *Please ensure that you have carefully studied the API responses and selected the most appropriate nodes for the mapping of data.*
+Tests: `npm test`
 
-## Submission Guidelines:
-- Provide a link to your public repo for us to clone or email us a ZIP of the project.
-- Include clear instructions on how to run your application locally.
-- Document any assumptions or decisions you make during the development process.
-- Submit your completed project within the specified timeframe.
+## Stack
 
+- React Query for the API calls
+- Tailwind + shadcn/ui for the UI
 
-## Evaluation Criteria:
-### Functionality: 
-> Does the application meet the specified requirements? Does it accurately perform currency conversion?
+## Notes
 
-### Code Quality:
-> Is the code well-structured, readable, and maintainable? Are best practices followed?
+- In `/currencies` the `code` field is a number (like `840`), so I use `short_code` (`USD`) for the selects and for `/convert`.
+- For the converted value I use `response.value`.
+- I only load fiat currencies, crypto is skiped.
+- There is no convert button, the result updates when you type (with a small debounce so it dosen't send a request on every key).
+- React Query is maybe a bit much for two requests, but it gives me caching, retries and cancelling old requests for free, so I didnt have to write that myself.
+- The "to" field is read only, the task only asks to convert one way.
+- The API key is in the frontend, so its visible in the browser. Ok for this task, in a real app I would call the API from a backend insted.
 
-### Component Composition:
-> Are components appropriately structured and reused? Is there unnecessary duplication?
+## TODO
 
-### User Experience:
-> Is the user interface intuitive and easy to use? Does it provide clear feedback to users?
-
-### Additional Features:
-> Are any optional features implemented effectively?
-
-## Notes:
-- You are encouraged to use any additional libraries or tools you find necessary to complete the project efficiently.
-- Please ensure that your project is self-contained and can be easily set up and run by the evaluation team.
-- If you have any questions or need clarification on the requirements, feel free to reach out for assistance. Good luck!
+- convert both ways
+- search in the currency list
+- show the date of the rate
