@@ -1,12 +1,8 @@
-const BASE_URL = 'https://api.currencybeacon.com/v1'
-
 type Letter =
   | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M'
   | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z'
 
 export type CurrencyCode = `${Letter}${Letter}${Letter}`
-
-export const isCurrencyCode = (value: string): value is CurrencyCode => /^[A-Z]{3}$/.test(value)
 
 export type Currency = {
   shortCode: CurrencyCode
@@ -27,6 +23,13 @@ export type Conversion = {
   value: number
 }
 
+type ApiResponse<T> = {
+  meta?: { code: number; error_detail?: string }
+  response?: T
+}
+
+const BASE_URL = 'https://api.currencybeacon.com/v1'
+
 export class ApiError extends Error {
   status: number
 
@@ -36,10 +39,7 @@ export class ApiError extends Error {
   }
 }
 
-type ApiResponse<T> = {
-  meta?: { code: number; error_detail?: string }
-  response?: T
-}
+export const isCurrencyCode = (value: string): value is CurrencyCode => /^[A-Z]{3}$/.test(value)
 
 const get = async <T>(path: string, params: Record<string, string>, signal?: AbortSignal): Promise<T> => {
   const apiKey = import.meta.env.VITE_CURRENCY_BEACON_API_KEY

@@ -1,8 +1,8 @@
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
-import { mockApi, requestedUrls } from '../test/mockFetch'
-import { renderWithClient } from '../test/render'
+import { mockApi, requestedUrls } from '@/test/mockFetch'
+import { renderWithClient } from '@/test/render'
 import CurrencyConverter from './CurrencyConverter'
 
 const convertedAmount = () => screen.getByLabelText('Converted amount')

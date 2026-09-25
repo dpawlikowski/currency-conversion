@@ -3,7 +3,7 @@ import type { CurrencyCode } from '@/api/currencyBeacon'
 import { useConversion, useCurrencies } from '@/api/queries'
 import { Button } from '@/components/ui/button'
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
-import Converter from './Converter'
+import Converter from '@/components/Converter'
 
 const parseAmount = (value: string) => {
   if (value.trim() === '') return null
