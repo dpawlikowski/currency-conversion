@@ -2,6 +2,8 @@
 
 Simple currency converter, similiar to the one in Google. Made with React, TypeScript and Vite. Rates come from the [CurrencyBeacon](https://currencybeacon.com) API.
 
+Live: https://dpawlikowski.github.io/currency-conversion/
+
 ## How to run
 
 You need Node 20.19+ and a free CurrencyBeacon API key (you get it after you register, its on the dashboard).
@@ -15,6 +17,8 @@ npm run dev
 App runs on http://localhost:5173
 
 Tests: `npm test`
+
+It deploys to GitHub Pages on every push to main (`.github/workflows/deploy.yml`). The API key is taken from the `VITE_CURRENCY_BEACON_API_KEY` repo secret.
 
 ## Stack
 
